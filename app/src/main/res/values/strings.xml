@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name"></string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_dni">Dni</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Iniciar Sesión</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Biemvenido(a)"</string>
+    <string name="invalid_username">Ingrese su DNI</string>
+    <string name="invalid_password">Ingrese su contraseña</string>
+    <string name="login_failed">"logeo invalido"</string>
+    <string name="recordar_usuario">Recordar Usuario</string>
+    <string name="title_activity_menu">activity_menu</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Jazmin Carrizales</string>
+    <string name="nav_header_subtitle">73247844</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Entregas</string>
+    <string name="menu_gallery">Cerrar Sesión</string>
+    <string name="menu_slideshow">Salir</string>
+    <string name="title_fragment_home">HomeFragment</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_evidencia">EvidenciaActivity</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
