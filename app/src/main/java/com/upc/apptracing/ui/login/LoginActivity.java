@@ -5,7 +5,9 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -14,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -25,6 +28,8 @@ import android.widget.Toast;
 
 import com.upc.apptracing.MainActivity;
 import com.upc.apptracing.R;
+import com.upc.apptracing.dao.DAOConductor;
+import com.upc.apptracing.entidades.Conductor;
 import com.upc.apptracing.util.LoadDataBase;
 
 public class LoginActivity extends AppCompatActivity {
@@ -119,14 +124,50 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                DAOConductor daoConductor = new DAOConductor(LoginActivity.this);
+                String numeroDni = usernameEditText.getText().toString();
+                String contrasenia = passwordEditText.getText().toString();
+
+                daoConductor.openDB();
+                Conductor loginConductor = daoConductor.buscarConductor(numeroDni, contrasenia);
+
+                if (loginConductor != null) {
+                    Log.i("==> LOGLogin", "ingreso con un elemento");
+
+                    String loginName = loginConductor.getGls_nombre() + " " + loginConductor.getGls_apellido();
+                    String welcome = "Bienvenido(a) " + loginName;
+
+                    guardarPreferencia(loginName, numeroDni);
+
+                    Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+
+                    Intent miIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(miIntent);
+
+                    finish();
+                } else {
+                    String message = "El DNI o la contraseña son incorrectas. Vuelva a intentar.";
+                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                }
+                /*
+
                 Intent miIntent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(miIntent);
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
-                finish();
+                finish();*/
             }
         });
+    }
+
+    public void guardarPreferencia(String nombreLogin, String num_dni) {
+        SharedPreferences prefs = getSharedPreferences("PREFERENCIAS", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("loginName", nombreLogin);
+        editor.putString("numDni", num_dni);
+        editor.commit();
     }
 
     private void updateUiWithUser(LoggedInUserView model) {

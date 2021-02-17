@@ -11,6 +11,8 @@ public class Conductor {
     private String num_licencia;
     private String fec_vencimiento;
 
+    public Conductor() {
+    }
 
     public Conductor(String gls_nombre, String gls_apellido, String num_dni, String contrasenia, int estado, String num_telefono, String num_licencia, String fec_vencimiento) {
         this.gls_nombre = gls_nombre;

@@ -1,9 +1,13 @@
 package com.upc.apptracing;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -39,12 +43,17 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        //asignarPreferencias();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        asignarPreferencias();
+
         return true;
     }
 
@@ -53,5 +62,21 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    private void asignarPreferencias(){
+
+        SharedPreferences prefs = getSharedPreferences("PREFERENCIAS", Context.MODE_PRIVATE);
+        String gls_LoginName = prefs.getString("loginName","");
+        String nro_documento = prefs.getString("numDni","");
+
+        //Toast.makeText(getApplicationContext(), gls_LoginName, Toast.LENGTH_LONG).show();
+
+        TextView textUser = (TextView) findViewById(R.id.txtLoginName);
+        TextView textNroDocumento = (TextView) findViewById(R.id.txtNumDocumento);
+
+        textUser.setText(gls_LoginName);
+        textNroDocumento.setText(nro_documento);
+
     }
 }

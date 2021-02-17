@@ -316,7 +316,8 @@ public class LoadDataBase {
         daoConductor = new DAOConductor(context);
 
         daoConductor.openDB();
-        conductor = new Conductor("Jhon", "Malmorejo Perez", "44452897", "admin1231", 1, "997521854", "586974389562", "31/12/21");
+        //conductor = new Conductor("Jhon", "Malmorejo Perez", "44452897", "admin1231", 1, "997521854", "586974389562", "31/12/21");
+        conductor = new Conductor("Victor", "Yucra Antittupa", "44422819", "admin123", 1, "997521098", "586974389562", "31/12/21");
         daoConductor.registrarConductor(conductor);
 
         daoConductor.openDB();
